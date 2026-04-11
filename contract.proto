@@ -5,7 +5,7 @@ package contract;
 import "google/protobuf/timestamp.proto";
 
 // ПУТЬ К ТВОЕМУ ВТОРОМУ РЕПОЗИТОРИЮ (REPO B)
-option go_package = "github.com/yerassylkm/AP2-asg2_generated/contract";
+option go_package = "github.com/yerassylkm/AP-asg2_generated/contract";
 
 // --- 1. Сервис Платежей (REST -> gRPC миграция) ---
 service PaymentService {
