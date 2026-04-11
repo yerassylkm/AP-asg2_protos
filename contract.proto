@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package contract;
+
+import "google/protobuf/timestamp.proto";
+
+// ПУТЬ К ТВОЕМУ ВТОРОМУ РЕПОЗИТОРИЮ (REPO B)
+option go_package = "github.com/yerassylkm/AP2-asg2_generated/contract";
+
+// --- 1. Сервис Платежей (REST -> gRPC миграция) ---
+service PaymentService {
+    rpc ProcessPayment (PaymentRequest) returns (PaymentResponse);
+}
+
+// --- 2. Сервис Трекинга Заказов (Стриминг) ---
+service OrderTrackingService {
+    // Server-side streaming: сервер постоянно шлет обновления статуса
+    rpc SubscribeToOrderUpdates (OrderRequest) returns (stream OrderStatusUpdate);
+}
+
+// --- Сообщения (Messages) ---
+
+message PaymentRequest {
+    string order_id = 1;
+    int64 amount = 2;
+}
+
+message PaymentResponse {
+    string transaction_id = 1;
+    string status = 2;
+    google.protobuf.Timestamp created_at = 3;
+}
+
+message OrderRequest {
+    string order_id = 1;
+}
+
+message OrderStatusUpdate {
+    string order_id = 1;
+    string status = 2;
+    google.protobuf.Timestamp updated_at = 3;
+}
